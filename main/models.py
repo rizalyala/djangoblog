@@ -5,6 +5,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, max_length=200)
     author = models.CharField(max_length=100)
+    categories = models.ManyToManyField('Categories', related_name='posts')
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -12,3 +13,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Categories(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+            return self.name

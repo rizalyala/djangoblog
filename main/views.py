@@ -7,4 +7,4 @@ def homepage(request):
 
 def blog_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    return render(request, 'blog_detail.html', {'post': post})
+    return render(request, 'detail.html', {'post': post})
