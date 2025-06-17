@@ -1,9 +1,44 @@
-<h1>Blog</h1>
-<ul>
-  {% for post in posts %} 
-    <li>
-      <a href="{% url 'blog_detail' post.id %}">{{ post.title }}</a>
-      <small>{{ post.created_at }}</small>
-    </li>
-  {% endfor %}
-</ul>
+{% load static %}
+{% comment %} {% load humanize %} {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}My Blog{% endblock %}</title>
+  {% comment %} <link rel="stylesheet" href="{% static 'style.css' %}"> {% endcomment %}
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-black text-white min-h-screen ">
+  <header class="p-6">
+    <nav class="flex space-x-4">
+      <div class="flex justify-between items-center w-full">
+        <div class="flex items-center">
+          <span class="font-bold text-xl">MyBlog</span>
+        </div>
+        <div class="flex space-x-4">
+          <a href="{% url 'homepage' %}" class="text-white hover:text-gray-300">Home</a>
+        </div>
+      </div>
+      {% comment %} <a href="{% url 'about' %}" class="text-white hover:text-gray-300">About</a> {% endcomment %}
+    </nav>
+  </header>
+  <main class="container mx-auto px-6 py-10">
+    {% block content %}
+    <ul>
+      {% for post in posts %}
+        <li class="mb-2">
+        <a href="{% url 'blog_detail' post.id %}" class="text-blue-400 hover:underline text-[32px]">{{ post.title }}</a>
+        <small class="text-gray-400 text-[16px]">{{ post.created_at }}</small>
+        </li>
+      {% empty %}
+        <li>No posts yet.</li>
+      {% endfor %}
+    </ul>
+    {% endblock %}
+  </main>
+  <footer class="text-center p-4 mt-8 w-full fixed bottom-0 left-0 bg-black">
+    <p>&copy; {{ year }} My Blog</p>
+  </footer>
+</body>
+</html>
