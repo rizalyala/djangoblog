@@ -1,4 +1,13 @@
-<h1>{{ post.title }}</h1>
-<p>{{ post.content }}</p>
-<small>Diposting pada {{ post.created_at }}</small>
-<a href="{% url 'homepage' %}">Kembali</a>
+{% extends "index.html" %}
+
+{% block content %}
+<div class=" mx-auto  p-8 rounded-lg shadow mt-10">
+    <h1 class="text-5xl font-bold mb-4 text-gray-200">{{ post.title }}</h1>
+    <p class="text-2xl text-gray-300 mb-6">{{ post.content }}</p>
+    <div class="flex items-center justify-between">
+        <small class="text-gray-500">Posted at {{ post.created_at }}</small>
+        <a href="{% url 'homepage' %}" class=" text-2xl text-blue-600 hover:text-gray-600"><-- Back</a>
+    </div>
+</div>
+
+{% endblock %}
