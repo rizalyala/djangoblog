@@ -6,8 +6,8 @@ def homepage(request):
     return render(request, 'index.html', {'posts': posts})
 
 def blog_list(request):
-    posts = Post.objects.all().order_by('-created_at')
-    return render(request, 'list.html', {'posts': posts})
+    blogs = Post.objects.all().order_by('-created_at')
+    return render(request, 'list.html', {'blogs': blogs})
 
 def blog_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
