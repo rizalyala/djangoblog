@@ -8,8 +8,11 @@
   <title>{% block title %}My Blog{% endblock %}</title>
   {% comment %} <link rel="stylesheet" href="{% static 'style.css' %}"> {% endcomment %}
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..400&display=swap" rel="stylesheet">
 </head>
-<body class="bg-black text-white min-h-screen ">
+<body style= "font-family: 'Quicksand', sans-serif" class="bg-black text-white min-h-screen ">
   <header class="p-6">
     <nav class="flex space-x-4">
       <div class="flex justify-between items-center w-full">
@@ -17,24 +20,30 @@
           <span class="font-bold text-xl">MyBlog</span>
         </div>
         <div class="flex space-x-4">
-          <a href="{% url 'homepage' %}" class="text-white hover:text-gray-300">Home</a>
+          <a href="{% url 'homepage' %}" class="text-xl text-white hover:text-gray-300 border-e px-5 py-1" >Home</a>
+          <a href="{% url 'blog_list' %}" class="text-xl text-white hover:text-gray-300 py-1">Articles</a>
         </div>
       </div>
-      {% comment %} <a href="{% url 'about' %}" class="text-white hover:text-gray-300">About</a> {% endcomment %}
+      
     </nav>
   </header>
   <main class="container mx-auto px-6 py-10">
     {% block content %}
-    <ul>
-      {% for post in posts %}
-        <li class="mb-2">
-        <a href="{% url 'blog_detail' post.id %}" class="text-blue-400 hover:underline text-[32px]">{{ post.title }}</a>
-        <small class="text-gray-400 text-[16px]">{{ post.created_at }}</small>
-        </li>
+    <div class="space-y-6">
+      {% for post in posts %} 
+        <div class="w-full">
+          <a href="{% url 'blog_detail' post.id %}" class="block">
+            <h2 class="text-2xl font-bold truncate" title="{{ post.title }}">
+              {{ post.title }}
+            </h2>
+          </a>
+          
+        </div>
       {% empty %}
-        <li>No posts yet.</li>
+        <div class="text-gray-400">No posts yet.</div>
       {% endfor %}
-    </ul>
+    </div>
+    
     {% endblock %}
   </main>
   <footer class="text-center p-4 mt-8 w-full fixed bottom-0 left-0 bg-black">
