@@ -11,42 +11,54 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..400&display=swap" rel="stylesheet">
-</head>
-<body style= "font-family: 'Quicksand', sans-serif" class="bg-black text-white min-h-screen ">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"></head>
+<body style="font-family: 'Share Tech Mono', monospace;" class="bg-black min-h-screen">
   <header class="p-6">
-    <nav class="flex space-x-4">
-      <div class="flex justify-between items-center w-full">
-        <div class="flex items-center">
-          <span class="font-bold text-xl">MyBlog</span>
+    <nav class="flex flex-col md:flex-row md:space-x-4">
+      <div class="flex flex-col md:flex-row justify-between items-center w-full">
+        <div class="flex items-center mb-4 md:mb-0">
+          <span class="font-bold text-xl bg-white px-2 py-1 rounded">MyBlog</span>
         </div>
-        <div class="flex space-x-4">
-          <a href="{% url 'homepage' %}" class="text-xl text-white hover:text-gray-300 border-e px-5 py-1" >Home</a>
-          <a href="{% url 'blog_list' %}" class="text-xl text-white hover:text-gray-300 py-1">Articles</a>
+        <!-- Burger Button -->
+        <button id="burger-btn" class="md:hidden text-white focus:outline-none" aria-label="Toggle navigation">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+        <!-- Navigation Links -->
+        <div id="nav-links" class="flex-col md:flex md:flex-row md:space-x-4 space-y-2 md:space-y-0 hidden md:flex">
+          <a href="{% url 'homepage' %}" class="text-xl text-white hover:text-gray-600 border-b md:border-b-0 md:border-e px-5 py-1 transition">Home</a>
+          <a href="{% url 'blog_list' %}" class="text-xl text-white hover:text-gray-600 border-b md:border-b-0 md:border-e pr-5 py-1 transition">Articles</a>
+          <a href="{% url 'about' %}" class="text-xl text-white hover:text-gray-600 py-1 transition">About</a>
         </div>
       </div>
-      
     </nav>
+    <script>
+      const burgerBtn = document.getElementById('burger-btn');
+      const navLinks = document.getElementById('nav-links');
+      burgerBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('hidden');
+      });
+    </script>
   </header>
-  <main class="container mx-auto px-6 py-10">
+  <main class="container mx-auto px-4 md:px-6 py-10">
     {% block content %}
     <div class="space-y-6">
       {% for post in posts %} 
         <div class="w-full">
           <a href="{% url 'blog_detail' post.id %}" class="block">
-            <h2 class="text-2xl font-bold truncate" title="{{ post.title }}">
+            <h2 class="text-2xl md:text-4xl text-white font-bold truncate" title="{{ post.title }}">
               {{ post.title }}
             </h2>
           </a>
-          
         </div>
       {% empty %}
-        <div class="text-gray-400">No posts yet.</div>
+        <div class="text-gray-800">No posts yet.</div>
       {% endfor %}
     </div>
-    
     {% endblock %}
   </main>
-  <footer class="text-center p-4 mt-8 w-full fixed bottom-0 left-0 bg-black">
+  <footer class="text-center p-4 mt-8 w-full fixed bottom-0 left-0 bg-black bg-opacity-80">
     <p>&copy; {{ year }} My Blog</p>
   </footer>
 </body>

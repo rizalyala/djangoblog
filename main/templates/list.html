@@ -1,19 +1,19 @@
 {% extends "index.html" %}
 
 {% block content %}
-    <h2 class="text-5xl font-bold mb-6">Articles</h2>
-    <ul class="space-y-4">
-        {% for blog in blogs %}
-            
-                <a href="{% url 'blog_detail' blog.id %}" class="text-2xl font-semibold text-white-600 hover:text-gray-800">
-                    <li class="p-2 hover:bg-gray-50 transition">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl sm:text-4xl md:text-5xl text-gray-200 font-bold mb-6">Articles</h2>
+        <ul class="space-y-4">
+            {% for blog in blogs %}
+                <li class="p-2 hover:bg-gray-50 transition rounded-lg">
+                    <a href="{% url 'blog_detail' blog.id %}" class="block text-lg sm:text-xl md:text-2xl font-semibold text-white hover:text-gray-800">
                         {{ blog.title }}
-                    </li>
-                </a>
-                <p class="text-gray-600 mt-2">{{ blog.summary }}</p>
-            
-        {% empty %}
-            <li class="text-gray-500">Tidak ada blog yang tersedia.</li>
-        {% endfor %}
-    </ul>
+                    </a>
+                    <p class="text-gray-200 sm:text-gray-600 mt-2 text-sm sm:text-base">{{ blog.summary }}</p>
+                </li>
+            {% empty %}
+                <li class="text-gray-200">Tidak ada blog yang tersedia.</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
